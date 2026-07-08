@@ -1,0 +1,42 @@
+# CI-Pipeline: Codestil, statische Analyse und Tests bei jedem Push/PR.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: PHP einrichten
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl, pdo_sqlite
+          coverage: none
+
+      - name: Composer-Cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - name: Abhängigkeiten installieren
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Codestil prüfen (Pint)
+        run: vendor/bin/pint --test
+
+      - name: Statische Analyse (PHPStan)
+        run: vendor/bin/phpstan analyse --memory-limit=1G --error-format=github
+
+      - name: Tests ausführen (Pest)
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          vendor/bin/pest --ci
