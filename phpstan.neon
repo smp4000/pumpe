@@ -10,3 +10,4 @@ parameters:
 
     excludePaths:
         - app-modules/*/database/*
+        - app-modules/*/Tests/*

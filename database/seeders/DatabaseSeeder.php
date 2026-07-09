@@ -60,12 +60,13 @@ class DatabaseSeeder extends Seeder
             ->count(5)
             ->create(['station_id' => $station?->getKey()]);
 
-        // Demo-Betrieb erhält das Referenzmodul als aktive Lizenz
-        $playground = Module::query()->where('code', 'playground')->first();
-
-        if ($playground !== null) {
-            app(LicenseModule::class)->execute($organization, $playground, LicenseStatus::Active);
-        }
+        // Demo-Betrieb erhält alle Fachmodule als aktive Lizenz
+        Module::query()
+            ->where('is_core', false)
+            ->get()
+            ->each(function (Module $module) use ($organization): void {
+                app(LicenseModule::class)->execute($organization, $module, LicenseStatus::Active);
+            });
 
         $tenant->forget();
     }

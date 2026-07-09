@@ -1,0 +1,16 @@
+{
+    "code": "shift-reconciliation",
+    "name": "Schichtabrechnung",
+    "description": "Kassen- und Schichtabrechnung mit Soll/Ist-Abgleich, Freigabe-Workflow und Storno.",
+    "is_core": false,
+    "depends_on": [],
+    "permissions": [
+        "shift-reconciliation.shifts.view",
+        "shift-reconciliation.shifts.create",
+        "shift-reconciliation.shifts.update",
+        "shift-reconciliation.shifts.submit",
+        "shift-reconciliation.shifts.approve",
+        "shift-reconciliation.shifts.cancel",
+        "shift-reconciliation.shifts.delete"
+    ]
+}
