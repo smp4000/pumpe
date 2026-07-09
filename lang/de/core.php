@@ -86,6 +86,15 @@ return [
         'team' => 'Team',
     ],
 
+    'tabs' => [
+        'master_data' => 'Stammdaten',
+        'address_contact' => 'Adresse & Kontakt',
+        'person' => 'Person',
+        'contact' => 'Kontakt',
+        'employment' => 'Beschäftigung',
+        'status' => 'Status',
+    ],
+
     'invitations' => [
         'mail_subject' => 'Einladung zu :organization',
         'mail_greeting' => 'Guten Tag,',

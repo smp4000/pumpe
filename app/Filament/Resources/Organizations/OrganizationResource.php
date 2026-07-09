@@ -15,6 +15,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
@@ -45,51 +47,70 @@ class OrganizationResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
-            TextInput::make('name')
-                ->label(__('core.fields.name'))
-                ->required()
-                ->maxLength(255),
+            Tabs::make()
+                ->columnSpanFull()
+                ->tabs([
+                    Tab::make(__('core.tabs.master_data'))
+                        ->icon(Heroicon::OutlinedBuildingOffice2)
+                        ->columns(2)
+                        ->schema([
+                            TextInput::make('name')
+                                ->label(__('core.fields.name'))
+                                ->required()
+                                ->maxLength(255),
 
-            TextInput::make('legal_name')
-                ->label('Firmierung')
-                ->maxLength(255),
+                            TextInput::make('legal_name')
+                                ->label('Firmierung')
+                                ->maxLength(255),
 
-            TextInput::make('slug')
-                ->label('URL-Kürzel')
-                ->disabled()
-                ->helperText('Wird bei der Registrierung erzeugt und ist Teil aller Links des Betriebs.'),
+                            TextInput::make('slug')
+                                ->label('URL-Kürzel')
+                                ->disabled()
+                                ->helperText('Wird bei der Registrierung erzeugt und ist Teil aller Links des Betriebs.'),
 
-            TextInput::make('vat_id')
-                ->label('USt-IdNr.')
-                ->maxLength(20),
+                            TextInput::make('vat_id')
+                                ->label('USt-IdNr.')
+                                ->maxLength(20),
+                        ]),
 
-            TextInput::make('billing_email')
-                ->label('Rechnungs-E-Mail')
-                ->email()
-                ->maxLength(255),
+                    Tab::make(__('core.tabs.address_contact'))
+                        ->icon(Heroicon::OutlinedMapPin)
+                        ->columns(2)
+                        ->schema([
+                            TextInput::make('billing_email')
+                                ->label('Rechnungs-E-Mail')
+                                ->email()
+                                ->maxLength(255),
 
-            TextInput::make('phone')
-                ->label(__('core.fields.phone'))
-                ->tel()
-                ->maxLength(30),
+                            TextInput::make('phone')
+                                ->label(__('core.fields.phone'))
+                                ->tel()
+                                ->maxLength(30),
 
-            TextInput::make('street')
-                ->label(__('core.fields.street'))
-                ->maxLength(255),
+                            TextInput::make('street')
+                                ->label(__('core.fields.street'))
+                                ->maxLength(255)
+                                ->columnSpanFull(),
 
-            TextInput::make('postal_code')
-                ->label(__('core.fields.postal_code'))
-                ->maxLength(10),
+                            TextInput::make('postal_code')
+                                ->label(__('core.fields.postal_code'))
+                                ->maxLength(10),
 
-            TextInput::make('city')
-                ->label(__('core.fields.city'))
-                ->maxLength(255),
+                            TextInput::make('city')
+                                ->label(__('core.fields.city'))
+                                ->maxLength(255),
+                        ]),
 
-            Select::make('status')
-                ->label(__('core.fields.status'))
-                ->options(OrganizationStatus::class)
-                ->required()
-                ->native(false),
+                    Tab::make(__('core.tabs.status'))
+                        ->icon(Heroicon::OutlinedShieldCheck)
+                        ->schema([
+                            Select::make('status')
+                                ->label(__('core.fields.status'))
+                                ->options(OrganizationStatus::class)
+                                ->required()
+                                ->native(false),
+                        ]),
+                ]),
         ]);
     }
 

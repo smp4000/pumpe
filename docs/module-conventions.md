@@ -104,3 +104,7 @@ Ein Eintrag in `bootstrap/providers.php` ist NICHT nötig.
    (Tenant A sieht keine Daten von Tenant B).
 9. **Ein Modul, ein Zweck:** Wenn ein Modul zwei unabhängig lizenzierbare Funktionen
    enthält, sind es zwei Module.
+10. **Formulare im Tab-Layout:** Formulare mit mehreren Themengruppen (ab ca. fünf
+    Feldern) werden als Filament-Tabs mit Icons aufgebaut (`Tabs::make()->tabs([...])`,
+    Referenz: StationForm/EmployeeForm). Kleine Modal-Formulare (1–4 Felder,
+    z. B. Einladungen) bleiben flach. Jede Formularseite erhält einen Render-Test.
