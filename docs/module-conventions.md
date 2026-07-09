@@ -28,14 +28,22 @@ app-modules/
     Enums/
     Tests/
       Feature/  Unit/
+    Database/
+      Factories/                    ← PSR-4-autoloadbar; Models überschreiben newFactory()
     database/
-      migrations/  factories/
+      migrations/                   ← per loadMigrationsFrom() geladen
     lang/de/
-      shift-reconciliation.php
+      shift-reconciliation.php      ← Zugriff: __('<module-code>::…')
     routes/
       api.php
     module.json                     ← Manifest
 ```
+
+Module werden **automatisch registriert**: Der `ModulesServiceProvider` (Core)
+liest alle `module.json`-Manifeste und registriert die ServiceProvider per
+Namenskonvention (`Providers/<Dir>ServiceProvider`). Ebenso wird das
+Filament-Plugin (`Filament/<Dir>Plugin`) automatisch im App-Panel registriert.
+Ein Eintrag in `bootstrap/providers.php` ist NICHT nötig.
 
 ## Manifest (`module.json`)
 
@@ -45,13 +53,20 @@ app-modules/
     "name": "Schichtabrechnung",
     "description": "Kassen- und Schichtabrechnung mit Soll/Ist-Abgleich.",
     "is_core": false,
-    "depends_on": []
+    "depends_on": [],
+    "permissions": [
+        "shift-reconciliation.shifts.view",
+        "shift-reconciliation.shifts.close"
+    ]
 }
 ```
 
 - `code` ist der stabile, kebab-case Identifier — er erscheint in der Lizenztabelle,
   in Permission-Namen und in Übersetzungs-Keys. Er wird **nie** geändert.
 - `depends_on` listet Modul-Codes, die aktiv sein müssen.
+- `permissions` deklariert alle Berechtigungen des Moduls; `php artisan
+  modules:sync` legt sie an, und `LicenseModule` vergibt sie bei der
+  Lizenzierung automatisch an die Inhaber-Rolle des Betriebs.
 
 ## Regeln
 
@@ -68,9 +83,14 @@ app-modules/
 3. **Permissions:** Schema `<module-code>.<resource>.<ability>`, z. B.
    `shift-reconciliation.shifts.close`. Registrierung im ServiceProvider;
    der Core synchronisiert sie in die Datenbank.
-4. **Lizenzprüfung:** Das Filament-Plugin wird nur bei aktiver Lizenz des aktuellen
-   Tenants registriert; `routes/api.php` steht unter der Middleware
-   `module:<module-code>`; Policies prüfen zusätzlich.
+4. **Lizenzprüfung (drei Ebenen):**
+   - *Navigation/Seiten:* Filament-Resources binden den Trait
+     `App\Modules\Concerns\BelongsToModule` ein und implementieren
+     `getModuleCode()` — ohne nutzbare Lizenz verschwinden Navigation und Seiten.
+   - *Routen:* `routes/api.php` und Web-Routen des Moduls stehen unter der
+     Middleware `module:<module-code>`.
+   - *Daten:* Policies prüfen die Modul-Berechtigungen.
+   Referenzimplementierung: Modul `Playground` (app-modules/Playground).
 5. **API:** Alle Endpunkte unter `/api/v1/<module-code>/…`, Responses ausschließlich
    über API Resources, Eingaben über Form Requests. Jede Änderung wird in der
    OpenAPI-Spezifikation nachgezogen (Vertrag mit der Flutter-App).

@@ -1,0 +1,13 @@
+{
+    "code": "playground",
+    "name": "Spielwiese",
+    "description": "Referenzmodul: führt die Modul-Konventionen vor und dient als Vorlage für echte Fachmodule.",
+    "is_core": false,
+    "depends_on": [],
+    "permissions": [
+        "playground.notes.view",
+        "playground.notes.create",
+        "playground.notes.update",
+        "playground.notes.delete"
+    ]
+}

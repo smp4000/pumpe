@@ -160,6 +160,13 @@ class OrganizationResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\LicensesRelationManager::class,
+        ];
+    }
+
     public static function getPages(): array
     {
         return [

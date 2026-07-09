@@ -118,6 +118,25 @@ return [
         'edit_roles' => 'Rollen bearbeiten',
     ],
 
+    'license_status' => [
+        'trial' => 'Testphase',
+        'active' => 'Aktiv',
+        'cancelled' => 'Gekündigt',
+        'expired' => 'Beendet',
+    ],
+
+    'licenses' => [
+        'title' => 'Lizenzen',
+        'module' => 'Modul',
+        'trial_ends_at' => 'Testphase bis',
+        'expires_at' => 'Lizenz bis',
+        'add' => 'Modul buchen',
+    ],
+
+    'modules' => [
+        'not_licensed' => 'Dieses Modul ist für Ihren Betrieb nicht freigeschaltet.',
+    ],
+
     'organizations' => [
         'suspend' => 'Sperren',
         'activate' => 'Entsperren',

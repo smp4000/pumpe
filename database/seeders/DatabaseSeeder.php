@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Actions\CreateOrganization;
+use App\Actions\LicenseModule;
+use App\Enums\LicenseStatus;
 use App\Models\Employee;
+use App\Models\Module;
 use App\Models\User;
 use App\Tenancy\CurrentTenant;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 /**
  * Entwicklungs-Seed: Plattform-Admin, Demo-Organization mit Inhaber,
@@ -22,6 +26,9 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        // Module aus den Manifesten in die Datenbank übernehmen
+        Artisan::call('modules:sync');
+
         User::factory()->create([
             'name' => 'Plattform-Admin',
             'email' => 'admin@pumpe.test',
@@ -52,6 +59,13 @@ class DatabaseSeeder extends Seeder
         Employee::factory()
             ->count(5)
             ->create(['station_id' => $station?->getKey()]);
+
+        // Demo-Betrieb erhält das Referenzmodul als aktive Lizenz
+        $playground = Module::query()->where('code', 'playground')->first();
+
+        if ($playground !== null) {
+            app(LicenseModule::class)->execute($organization, $playground, LicenseStatus::Active);
+        }
 
         $tenant->forget();
     }

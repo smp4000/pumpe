@@ -7,6 +7,7 @@ namespace App\Providers\Filament;
 use App\Filament\App\Pages\Tenancy\RegisterOrganization;
 use App\Http\Middleware\ApplyTenantContext;
 use App\Models\Organization;
+use App\Modules\ModuleManager;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -44,6 +45,9 @@ class AppPanelProvider extends PanelProvider
                 'primary' => Color::Emerald,
             ])
             ->tenant(Organization::class, slugAttribute: 'slug')
+            // Filament-Plugins aller Module; Sichtbarkeit pro Tenant regeln
+            // BelongsToModule-Trait und Policies (Lizenzprüfung)
+            ->plugins(app(ModuleManager::class)->filamentPlugins())
             ->tenantRegistration(RegisterOrganization::class)
             ->tenantMiddleware([
                 ApplyTenantContext::class,

@@ -120,6 +120,14 @@ class Organization extends Model
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
+    /**
+     * @return HasMany<ModuleLicense, $this>
+     */
+    public function moduleLicenses(): HasMany
+    {
+        return $this->hasMany(ModuleLicense::class);
+    }
+
     public function isSuspended(): bool
     {
         return $this->status === OrganizationStatus::Suspended;

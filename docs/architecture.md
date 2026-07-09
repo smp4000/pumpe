@@ -89,9 +89,9 @@ Filament (Panels)   REST-API (/api/v1)
 
 | Phase | Inhalt | Status |
 | --- | --- | --- |
-| 0 | Fundament: Git, Laravel 12, Tooling, CI, Modul-Gerüst, Doku | in Arbeit |
-| 1 | Core: Organizations, Stationen, User/Einladungen, Mitarbeiter, Rollen/Rechte, Panels | offen |
-| 2 | Modul-/Lizenzsystem, manuelle Freischaltung, CSV-Import-Framework | offen |
+| 0 | Fundament: Git, Laravel 12, Tooling, CI, Modul-Gerüst, Doku | fertig |
+| 1 | Core: Organizations, Stationen, User/Einladungen, Mitarbeiter, Rollen/Rechte, Panels | fertig |
+| 2 | Modul-/Lizenzsystem (fertig), CSV-Import-Framework (offen) | in Arbeit |
 | 3 | Fachmodul Schichtabrechnung (Referenzimplementierung inkl. API v1 + OpenAPI) | offen |
 | 4 | Kraftstoff-Bestandsführung | offen |
 | 5 | Preisverwaltung, Prüfkalender, Checklisten | offen |

@@ -13,7 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Lizenzprüfung für Modul-Routen: ->middleware('module:<module-code>')
+        $middleware->alias([
+            'module' => App\Http\Middleware\EnsureModuleIsLicensed::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
