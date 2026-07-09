@@ -49,6 +49,13 @@ return [
         'hired_at' => 'Eintrittsdatum',
         'terminated_at' => 'Austrittsdatum',
         'notes' => 'Notizen',
+        'password' => 'Passwort',
+        'password_confirmation' => 'Passwort bestätigen',
+        'role' => 'Rolle',
+        'roles' => 'Rollen',
+        'expires_at' => 'Gültig bis',
+        'created_at' => 'Erstellt am',
+        'member_since' => 'Mitglied seit',
     ],
 
     'resources' => [
@@ -60,10 +67,64 @@ return [
             'label' => 'Mitarbeiter',
             'plural' => 'Mitarbeiter',
         ],
+        'member' => [
+            'label' => 'Mitglied',
+            'plural' => 'Mitglieder',
+        ],
+        'invitation' => [
+            'label' => 'Einladung',
+            'plural' => 'Einladungen',
+        ],
+        'organization' => [
+            'label' => 'Betrieb',
+            'plural' => 'Betriebe',
+        ],
     ],
 
     'nav' => [
         'master_data' => 'Stammdaten',
+        'team' => 'Team',
+    ],
+
+    'invitations' => [
+        'mail_subject' => 'Einladung zu :organization',
+        'mail_greeting' => 'Guten Tag,',
+        'mail_intro' => 'Sie wurden eingeladen, dem Betrieb „:organization" in Pumpe beizutreten.',
+        'mail_button' => 'Einladung annehmen',
+        'mail_expiry' => 'Der Link ist gültig bis :date Uhr.',
+        'mail_salutation' => 'Viele Grüße, Ihr Pumpe-Team',
+        'accept_title' => 'Einladung annehmen',
+        'accept_intro' => 'Sie wurden zu „:organization" eingeladen. Erstellen Sie ein Konto für :email, um beizutreten.',
+        'accept_button' => 'Konto erstellen und beitreten',
+        'accept_footer' => 'Sie haben diese Einladung nicht erwartet? Dann können Sie diese Seite einfach schließen.',
+        'expired_title' => 'Einladung nicht mehr gültig',
+        'expired_text' => 'Diese Einladung wurde bereits angenommen oder ist abgelaufen. Bitten Sie den Absender, Ihnen eine neue Einladung zu schicken.',
+        'mismatch_title' => 'Falsches Konto angemeldet',
+        'mismatch_text' => 'Die Einladung gilt für :invited, Sie sind aber als :current angemeldet.',
+        'mismatch_hint' => 'Bitte melden Sie sich ab und öffnen Sie den Einladungslink erneut.',
+        'status_pending' => 'Offen',
+        'status_accepted' => 'Angenommen',
+        'status_expired' => 'Abgelaufen',
+        'resend' => 'Erneut senden',
+        'resent' => 'Die Einladung wurde erneut versendet.',
+        'invited' => 'Die Einladung wurde versendet.',
+    ],
+
+    'members' => [
+        'remove' => 'Aus dem Betrieb entfernen',
+        'remove_confirm' => 'Soll dieses Mitglied wirklich aus dem Betrieb entfernt werden? Der Personalstammsatz bleibt erhalten.',
+        'removed' => 'Das Mitglied wurde entfernt.',
+        'cannot_remove_self' => 'Sie können sich nicht selbst entfernen.',
+        'edit_roles' => 'Rollen bearbeiten',
+    ],
+
+    'organizations' => [
+        'suspend' => 'Sperren',
+        'activate' => 'Entsperren',
+        'suspended' => 'Der Betrieb wurde gesperrt.',
+        'activated' => 'Der Betrieb wurde entsperrt.',
+        'stations_count' => 'Stationen',
+        'users_count' => 'Mitglieder',
     ],
 
     'roles' => [

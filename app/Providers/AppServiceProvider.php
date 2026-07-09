@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\User;
 use App\Tenancy\CurrentTenant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,5 +34,11 @@ class AppServiceProvider extends ServiceProvider
 
         // Destruktive Artisan-Befehle (migrate:fresh u. ä.) in Produktion sperren
         DB::prohibitDestructiveCommands($this->app->isProduction());
+
+        // Plattform-Administratoren (Betreiber) übergehen alle
+        // Berechtigungsprüfungen — u. a. für Support-Zugriffe im Admin-Panel.
+        Gate::before(function (User $user, string $ability): ?bool {
+            return $user->is_platform_admin ? true : null;
+        });
     }
 }

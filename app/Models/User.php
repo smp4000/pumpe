@@ -22,6 +22,12 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * Login-Konto. Mitgliedschaft in Organizations über organization_user (n:m);
  * der Personalstammsatz ist bewusst getrennt (Employee, ADR-0005).
+ *
+ * @property string $name
+ * @property string $email
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property bool $is_platform_admin
+ * @property string $locale
  */
 class User extends Authenticatable implements FilamentUser, HasTenants
 {
